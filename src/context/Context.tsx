@@ -17,10 +17,8 @@ export type WeatherContextProps = {
 };
 
 export type SearchQuery = {
-  name: string;
   lon: number;
   lat: number;
-  country: string;
 };
 
 interface WeatherProviderProps {
@@ -38,11 +36,7 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
   const lat = searchQuery?.lat;
   const lon = searchQuery?.lon;
 
-  const {
-    data: weatherData,
-    loading,
-    error,
-  } = useFetch(
+  const { data: weatherData } = useFetch(
     `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`
   );
   console.log(weatherData);

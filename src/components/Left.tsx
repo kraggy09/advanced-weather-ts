@@ -8,6 +8,7 @@ import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { WeatherContext, WeatherContextProps } from "../context/Context";
 import useFetch from "../hooks/useFetch";
 import { API_KEY } from "../constants";
+
 const Left = () => {
   const { query, setQuery, setSearchQuery, searchQuery, weatherData } =
     useContext(WeatherContext) as WeatherContextProps;
@@ -30,8 +31,8 @@ const Left = () => {
     <div className="w-3/4 p-5 text-lg h-full ">
       <div className="flex text-xl justify-between items-center">
         <span>
-          {searchQuery?.name}, {"  "}
-          {searchQuery?.country}
+          {weatherData?.name}, {"  "}
+          {weatherData?.sys.country}
         </span>
         <span className="">
           {date.getDate()}.
@@ -95,7 +96,7 @@ const Left = () => {
       </div>
       <div className="flex pt-6 items-center justify-center">
         <span className="flex items-center justify-center flex-col">
-          <p className="text-10xl">
+          <p className="xl:text-10xl text-3xl">
             {Math.ceil(weatherData?.main?.temp - 273)}°
           </p>
           <p className="text-3xl">{weatherData?.weather[0]?.main}</p>
@@ -105,7 +106,8 @@ const Left = () => {
             className="flex items-center justify-between
           "
           >
-            <LiaWindSolid size={30} /> <p className="px-3">6.1mph</p>
+            <LiaWindSolid size={30} />{" "}
+            <p className="px-3">{weatherData?.wind?.speed}km/h</p>
           </span>
           <span
             className="flex items-center justify-between
