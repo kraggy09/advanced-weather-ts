@@ -3,8 +3,11 @@ import { LiaWindSolid } from "react-icons/lia";
 
 import { Weather } from "../interface/interface";
 import WeatherElement from "./WeatherElement";
+import { useContext } from "react";
+import { WeatherContext, WeatherContextProps } from "../context/Context";
 
 const Right = () => {
+  const { weatherData } = useContext(WeatherContext) as WeatherContextProps;
   const date = new Date();
   const arr: Weather[] = [
     { day: "1PM", weather: 20, atmosphere: "Mist" },
@@ -28,18 +31,26 @@ const Right = () => {
       </span>
       <div className="flex pt-6 flex-col items-center justify-center">
         <span className="flex items-center justify-center ">
-          <p className="text-5xl">20°</p>
+          <p className="text-5xl">
+            {weatherData ? Math.ceil(weatherData?.main?.temp - 273) : ""}°
+          </p>
           <div className="text-sm font-bold pl-5">
             <span className="flex items-center justify-center">
               <LiaWindSolid size={20} /> <p className="px-3">6.1mph</p>
             </span>
             <span className="flex items-center justify-center">
-              <BsDroplet size={20} /> <p className="px-3">90%</p>
+              <BsDroplet size={20} />{" "}
+              <p className="px-3">
+                {weatherData && weatherData?.main?.humidity}%
+              </p>
             </span>
           </div>
         </span>
-        <p className="pt-1">Feels Like 19</p>
-        <p className="pt-1">Cloudy</p>
+        <p className="pt-1">
+          Feels Like{" "}
+          {weatherData && Math.ceil(weatherData?.main?.feels_like - 273)}
+        </p>
+        <p className="pt-1">{weatherData && weatherData.weather[0].main}</p>
       </div>
       <div className="flex pt-16 items-center justify-center flex-col">
         <h1 className="text-2xl py-3">Hourly ForeCast</h1>

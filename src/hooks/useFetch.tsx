@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
-import { API_KEY } from "../constants";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 
 interface FetchState<T> {
-  data: T | null;
+  data: T | null | T[];
   loading: boolean;
   error: string | null;
+  setData: Dispatch<SetStateAction<T | null>>;
 }
 
 function useFetch<T>(url: string): FetchState<T> {
@@ -15,7 +15,7 @@ function useFetch<T>(url: string): FetchState<T> {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(url + API_KEY);
+        const response = await fetch(url);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -32,7 +32,7 @@ function useFetch<T>(url: string): FetchState<T> {
     fetchData();
   }, [url]);
 
-  return { data, loading, error };
+  return { data, loading, error, setData };
 }
 
 export default useFetch;
