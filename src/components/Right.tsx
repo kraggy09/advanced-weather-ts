@@ -7,16 +7,11 @@ import { useContext } from "react";
 import { WeatherContext, WeatherContextProps } from "../context/Context";
 
 const Right = () => {
-  const { weatherData } = useContext(WeatherContext) as WeatherContextProps;
+  const { weatherData, foreCast } = useContext(
+    WeatherContext
+  ) as WeatherContextProps;
   const date = new Date();
-  const arr: Weather[] = [
-    { day: "1PM", weather: 20, atmosphere: "Mist" },
-    { day: "2PM", weather: 10, atmosphere: "Rainy" },
-    { day: "3PM", weather: 15, atmosphere: "Mist" },
-    { day: "4PM", weather: 16, atmosphere: "Sunny" },
-    { day: "5PM", weather: 23, atmosphere: "Mist" },
-    { day: "6PM", weather: 23, atmosphere: "Mist" },
-  ];
+
   return (
     <div className="w-1/4 p-5 text-lg bg-white/10">
       <span className="text-2xl">
@@ -60,9 +55,10 @@ const Right = () => {
       <div className="flex pt-3 items-center justify-center flex-col">
         <h1 className="text-2xl pt-1">Hourly ForeCast</h1>
         <div className="flex flex-wrap gap-3 items-center justify-center w-full">
-          {arr.map((ele: Weather, index: number) => {
-            return <WeatherElement ele={ele} key={index} />;
-          })}
+          {foreCast &&
+            foreCast.map((ele: Weather, index: number) => {
+              return <WeatherElement ele={ele} key={index} />;
+            })}
         </div>
       </div>
     </div>

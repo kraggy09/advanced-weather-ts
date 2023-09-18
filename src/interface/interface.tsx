@@ -1,5 +1,6 @@
 export interface Weather {
-  day: string;
-  weather: number;
-  atmosphere: string;
+  dt: number;
+  main: unknown;
+  dt_text: string;
+  weather: [];
 }

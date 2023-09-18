@@ -10,11 +10,15 @@ import useFetch from "../hooks/useFetch";
 import { API_KEY } from "../constants";
 
 const Left = () => {
-  const { query, setQuery, setSearchQuery, searchQuery, weatherData } =
-    useContext(WeatherContext) as WeatherContextProps;
+  const { query, setQuery, setSearchQuery, weatherData, foreCast } = useContext(
+    WeatherContext
+  ) as WeatherContextProps;
+  console.log(foreCast);
+
   const { data, loading, error, setData } = useFetch(
     `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${API_KEY}`
   );
+
   const date = new Date();
 
   const arr: Weather[] = [

@@ -5,12 +5,13 @@ import useFetch from "../hooks/useFetch";
 import { API_KEY } from "../constants";
 const Search = () => {
   const [hidden, setHidden] = useState<boolean>(true);
-  const { query, setQuery, setSearchQuery, searchQuery } = useContext(
+  const { query, setQuery, setSearchQuery } = useContext(
     WeatherContext
   ) as WeatherContextProps;
   const { data, loading, error, setData } = useFetch(
     `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${API_KEY}`
   );
+
   return (
     <div className="w-full h-full flex-col flex items-center justify-center">
       <p className="text-3xl font-light">

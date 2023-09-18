@@ -14,6 +14,7 @@ export type WeatherContextProps = {
   searchQuery: SearchQuery | null;
   setSearchQuery: Dispatch<SetStateAction<SearchQuery | null>>;
   weatherData: unknown;
+  foreCast: unknown;
 };
 
 export type SearchQuery = {
@@ -41,12 +42,17 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
   );
   console.log(weatherData);
 
+  const { data: foreCast } = useFetch(
+    `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`
+  );
+
   const final: WeatherContextProps = {
     query: query,
     setQuery: setQuery,
     searchQuery: searchQuery,
     setSearchQuery: setSearhQuery,
     weatherData: weatherData,
+    foreCast: foreCast,
   };
   console.log(searchQuery);
 

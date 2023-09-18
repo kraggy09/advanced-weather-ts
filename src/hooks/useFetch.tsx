@@ -29,7 +29,11 @@ function useFetch<T>(url: string): FetchState<T> {
       }
     };
 
-    fetchData();
+    {
+      !url.includes("undefined") && !url.includes("?q=&")
+        ? fetchData()
+        : "null";
+    }
   }, [url]);
 
   return { data, loading, error, setData };
