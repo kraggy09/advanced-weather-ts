@@ -15,6 +15,8 @@ const Left = () => {
   ) as WeatherContextProps;
   console.log(foreCast);
 
+  let currDate = new Date().getDate();
+
   const { data, loading, error, setData } = useFetch(
     `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${API_KEY}`
   );
@@ -117,7 +119,16 @@ const Left = () => {
       <div className="flex w-full pt-8 items-center gap-10 px-32">
         {foreCast &&
           foreCast.list.map((ele: ForecastItem, index: number) => {
-            return <WeatherElement key={index} ele={ele} />;
+            const date = new Date(ele.dt * 1000).getDate();
+            console.log(date, "Date");
+            console.log(currDate, "currDate");
+
+            if (date == currDate) {
+              console.log(date);
+
+              currDate += 1;
+              return <WeatherElement key={index} comp={"left"} ele={ele} />;
+            }
           })}
       </div>
     </div>

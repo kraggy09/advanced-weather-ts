@@ -1,7 +1,7 @@
 import { BsDroplet } from "react-icons/bs";
 import { LiaWindSolid } from "react-icons/lia";
 
-import { Weather } from "../interface/interface";
+import { ForecastItem, Weather } from "../interface/interface";
 import WeatherElement from "./WeatherElement";
 import { useContext } from "react";
 import { WeatherContext, WeatherContextProps } from "../context/Context";
@@ -55,8 +55,10 @@ const Right = () => {
         <h1 className="text-2xl pt-1">Hourly ForeCast</h1>
         <div className="flex flex-wrap gap-3 items-center justify-center w-full">
           {foreCast &&
-            foreCast.list.map((ele: Weather, index: number) => {
-              return <WeatherElement ele={ele} key={index} />;
+            foreCast.list.map((ele: ForecastItem, index: number) => {
+              if (index <= 5) {
+                return <WeatherElement ele={ele} comp="right" key={index} />;
+              }
             })}
         </div>
       </div>
