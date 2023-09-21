@@ -37,6 +37,7 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
     portal: "white/30",
     text: "black",
   });
+  const date = new Date().getHours();
 
   const lat = searchQuery?.lat;
   const lon = searchQuery?.lon;
@@ -65,7 +66,9 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
       } else if (weatherData.weather[0].main === "Thunderstorm") {
         setBg({ img: "thunder.jpg", portal: "white/30", text: "black" });
       } else if (weatherData.weather[0].main === "Clear") {
-        setBg({ img: "clear.jpg", portal: "white/30", text: "black" });
+        date > 16
+          ? setBg({ img: "clear_night.jpg", portal: "white/30", text: "black" })
+          : setBg({ img: "clear.jpg", portal: "white/30", text: "black" });
       } else if (weatherData.weather[0].main === "Drizzle") {
         setBg({ img: "drizzle.jpg", portal: "white/30", text: "black" });
       }
