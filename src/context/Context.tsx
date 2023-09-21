@@ -65,7 +65,7 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
       } else if (weatherData.weather[0].main === "Thunderstorm") {
         setBg({ img: "thunder.jpg", portal: "white/30", text: "black" });
       } else if (weatherData.weather[0].main === "Clear") {
-        setBg({ img: "thunder.jpg", portal: "white/30", text: "black" });
+        setBg({ img: "clear.jpg", portal: "white/30", text: "black" });
       } else if (weatherData.weather[0].main === "Drizzle") {
         setBg({ img: "drizzle.jpg", portal: "white/30", text: "black" });
       }
