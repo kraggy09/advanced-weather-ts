@@ -8,7 +8,7 @@ interface WeatherElementProps {
 }
 
 const WeatherElement: React.FC<WeatherElementProps> = ({ ele, comp }) => {
-  console.log(ele);
+  // console.log(ele);
 
   const date = new Date(ele.dt * 1000);
   return (
@@ -17,6 +17,7 @@ const WeatherElement: React.FC<WeatherElementProps> = ({ ele, comp }) => {
         {comp == "left"
           ? days[date.getDay()].substring(0, 3)
           : date.getHours() % 12}
+        {comp == "right" ? (date.getHours() > 11 ? " PM" : " AM") : ""}
       </span>
       <span className="text-xl">{Math.ceil(ele.main.temp - 273)}°</span>
       <span className="text-gray-800">{ele.weather[0].main}</span>

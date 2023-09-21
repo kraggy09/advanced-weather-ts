@@ -7,6 +7,12 @@ export interface Weather {
   weather: [];
 }
 
+export interface BackGround {
+  img: string;
+  text: "white" | "black";
+  portal: "white" | "black";
+}
+
 export interface WeatherProviderProps {
   children: ReactNode;
 }

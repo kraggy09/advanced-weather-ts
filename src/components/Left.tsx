@@ -13,7 +13,7 @@ const Left = () => {
   const { query, setQuery, setSearchQuery, weatherData, foreCast } = useContext(
     WeatherContext
   ) as WeatherContextProps;
-  console.log(foreCast);
+  // console.log(foreCast);
 
   let currDate = new Date().getDate();
 
@@ -41,7 +41,7 @@ const Left = () => {
           onSubmit={(e: FormEvent) => {
             e.preventDefault();
 
-            console.log(data, loading, error);
+            // console.log(data, loading, error);
           }}
           className="relative h-full flex  hover:cursor-pointer"
         >
@@ -120,11 +120,11 @@ const Left = () => {
         {foreCast &&
           foreCast.list.map((ele: ForecastItem, index: number) => {
             const date = new Date(ele.dt * 1000).getDate();
-            console.log(date, "Date");
-            console.log(currDate, "currDate");
+            // console.log(date, "Date");
+            // console.log(currDate, "currDate");
 
             if (date == currDate) {
-              console.log(date);
+              // console.log(date);
 
               currDate += 1;
               return <WeatherElement key={index} comp={"left"} ele={ele} />;

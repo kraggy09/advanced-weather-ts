@@ -1,17 +1,27 @@
-import { Dispatch, SetStateAction, createContext, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  createContext,
+  useEffect,
+  useState,
+} from "react";
 import useFetch from "../hooks/useFetch";
 import { API_KEY } from "../constants";
-import { ForeCast, WeatherProviderProps } from "../interface/interface";
+import {
+  BackGround,
+  ForeCast,
+  WeatherProviderProps,
+} from "../interface/interface";
 
-export type WeatherContextProps = {
+export interface WeatherContextProps {
   query: string;
   setQuery: Dispatch<SetStateAction<string>>;
-
   searchQuery: SearchQuery | null;
   setSearchQuery: Dispatch<SetStateAction<SearchQuery | null>>;
   weatherData: unknown;
   foreCast: ForeCast;
-};
+  bg: BackGround;
+}
 
 export type SearchQuery = {
   lon: number;
@@ -25,6 +35,11 @@ export const WeatherContext = createContext<WeatherContextProps | undefined>(
 export const WeatherProvider = ({ children }: WeatherProviderProps) => {
   const [query, setQuery] = useState<string>("");
   const [searchQuery, setSearhQuery] = useState<SearchQuery | null>(null);
+  const [bg, setBg] = useState<BackGround>({
+    img: "main.jpg",
+    portal: "black",
+    text: "white",
+  });
 
   const lat = searchQuery?.lat;
   const lon = searchQuery?.lon;
@@ -33,6 +48,19 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
     `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`
   );
   console.log(weatherData);
+
+  useEffect(() => {
+    // const date = new Date().getHours();
+    if (weatherData) {
+      if (weatherData.weather[0].main.localeCompare("haze")) {
+        setBg({ img: "haze.jpg", portal: "black", text: "white" });
+      } else if (weatherData.weather[0].main.localeCompare("rain")) {
+        setBg({ img: "rain.jpg", portal: "white", text: "black" });
+      } else if (weatherData.weather[0].main.localeCompare("clouds")) {
+        setBg({ img: "rain.jpg", portal: "white", text: "black" });
+      }
+    }
+  }, [weatherData]);
 
   const { data: foreCast } = useFetch<ForeCast>(
     `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`
@@ -45,6 +73,7 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
     setSearchQuery: setSearhQuery,
     weatherData: weatherData,
     foreCast: foreCast as ForeCast,
+    bg: bg,
   };
   console.log(searchQuery);
 
