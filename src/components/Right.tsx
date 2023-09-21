@@ -47,8 +47,7 @@ const Right = () => {
           </div>
         </span>
         <p className="pt-1">
-          Feels Like{" "}
-          {weatherData && Math.ceil(weatherData?.main?.feels_like - 273)}°
+          Feels Like {Math.ceil(weatherData?.main?.feels_like - 273)}°
         </p>
         <p className="pt-1">{weatherData && weatherData.weather[0].main}</p>
       </div>
@@ -56,7 +55,7 @@ const Right = () => {
         <h1 className="text-2xl pt-1">Hourly ForeCast</h1>
         <div className="flex flex-wrap gap-3 items-center justify-center w-full">
           {foreCast &&
-            foreCast.map((ele: Weather, index: number) => {
+            foreCast.list.map((ele: Weather, index: number) => {
               return <WeatherElement ele={ele} key={index} />;
             })}
         </div>

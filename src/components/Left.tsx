@@ -3,7 +3,7 @@ import { LiaWindSolid } from "react-icons/lia";
 import { BiSearch } from "react-icons/bi";
 
 import WeatherElement from "./WeatherElement";
-import { Weather } from "../interface/interface";
+import { ForecastItem, Weather } from "../interface/interface";
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { WeatherContext, WeatherContextProps } from "../context/Context";
 import useFetch from "../hooks/useFetch";
@@ -21,14 +21,6 @@ const Left = () => {
 
   const date = new Date();
 
-  const arr: Weather[] = [
-    { day: "Mon", weather: 20, atmosphere: "Mist" },
-    { day: "Tue", weather: 10, atmosphere: "Rainy" },
-    { day: "Wed", weather: 15, atmosphere: "Mist" },
-    { day: "Thu", weather: 16, atmosphere: "Sunny" },
-    { day: "Fri", weather: 23, atmosphere: "Mist" },
-    { day: "Sat", weather: 23, atmosphere: "Mist" },
-  ];
   const [hidden, setHidden] = useState<boolean>(true);
 
   return (
@@ -123,9 +115,10 @@ const Left = () => {
         </div>
       </div>
       <div className="flex w-full pt-8 items-center gap-10 px-32">
-        {arr.map((ele: Weather, index: number) => {
-          return <WeatherElement key={index} ele={ele} />;
-        })}
+        {foreCast &&
+          foreCast.list.map((ele: ForecastItem, index: number) => {
+            return <WeatherElement key={index} ele={ele} />;
+          })}
       </div>
     </div>
   );

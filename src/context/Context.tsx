@@ -1,30 +1,22 @@
-import {
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  createContext,
-  useState,
-} from "react";
+import { Dispatch, SetStateAction, createContext, useState } from "react";
 import useFetch from "../hooks/useFetch";
 import { API_KEY } from "../constants";
+import { ForeCast, WeatherProviderProps } from "../interface/interface";
 
 export type WeatherContextProps = {
   query: string;
   setQuery: Dispatch<SetStateAction<string>>;
+
   searchQuery: SearchQuery | null;
   setSearchQuery: Dispatch<SetStateAction<SearchQuery | null>>;
   weatherData: unknown;
-  foreCast: unknown;
+  foreCast: ForeCast;
 };
 
 export type SearchQuery = {
   lon: number;
   lat: number;
 };
-
-interface WeatherProviderProps {
-  children: ReactNode;
-}
 
 export const WeatherContext = createContext<WeatherContextProps | undefined>(
   undefined
@@ -42,7 +34,7 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
   );
   console.log(weatherData);
 
-  const { data: foreCast } = useFetch(
+  const { data: foreCast } = useFetch<ForeCast>(
     `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`
   );
 
@@ -52,7 +44,7 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
     searchQuery: searchQuery,
     setSearchQuery: setSearhQuery,
     weatherData: weatherData,
-    foreCast: foreCast,
+    foreCast: foreCast as ForeCast,
   };
   console.log(searchQuery);
 
