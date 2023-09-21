@@ -3,7 +3,7 @@ import { LiaWindSolid } from "react-icons/lia";
 import { BiSearch } from "react-icons/bi";
 
 import WeatherElement from "./WeatherElement";
-import { ForecastItem, Weather } from "../interface/interface";
+import { ForecastItem } from "../interface/interface";
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { WeatherContext, WeatherContextProps } from "../context/Context";
 import useFetch from "../hooks/useFetch";
@@ -15,9 +15,9 @@ const Left = () => {
   ) as WeatherContextProps;
   // console.log(foreCast);
 
-  let currDate = new Date().getDate();
-
-  const { data, loading, error, setData } = useFetch(
+  var currDate = new Date().getDate();
+  const flag = true;
+  const { data, setData } = useFetch(
     `https://api.openweathermap.org/geo/1.0/direct?q=${query}&limit=5&appid=${API_KEY}`
   );
 
@@ -26,9 +26,9 @@ const Left = () => {
   const [hidden, setHidden] = useState<boolean>(true);
 
   return (
-    <div className="w-3/4 p-5 text-lg h-full ">
-      <div className="flex text-xl justify-between items-center">
-        <span>
+    <div className="lg:w-3/4 w-full p-5 text-lg h-full ">
+      <div className="flex relative lg:text-xl justify-between items-center">
+        <span className="">
           {weatherData?.name}, {"  "}
           {weatherData?.sys.country}
         </span>
@@ -43,7 +43,7 @@ const Left = () => {
 
             // console.log(data, loading, error);
           }}
-          className="relative h-full flex  hover:cursor-pointer"
+          className="relative hidden lg:visible h-full lg:flex  hover:cursor-pointer"
         >
           {!hidden && (
             <div>
@@ -91,13 +91,68 @@ const Left = () => {
             <BiSearch size={30} />
           </button>
         </form>
+
+        <form
+          onSubmit={(e: FormEvent) => {
+            e.preventDefault();
+          }}
+          className="lg:hidden visible"
+        >
+          <div className="lg:hidden visible">
+            {" "}
+            {!hidden && (
+              <div className="absolute right-16">
+                <input
+                  type="text"
+                  value={query}
+                  placeholder="Search Here"
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                    if (query.length == 0) {
+                      setData("null");
+                    }
+                    setQuery(e.target.value);
+                  }}
+                  className={`bg-black text-white outline-none pl-3 rounded-xl`}
+                />
+                <div className="bg-black  absolute top-8 left-1 pl-6 rounded-xl w-[80%] flex flex-col text-white ">
+                  {Array.isArray(data) &&
+                    data.map((ele) => {
+                      return (
+                        <span
+                          onClick={() => {
+                            setHidden(true);
+                            setQuery("");
+                            setData("null");
+                            setSearchQuery(ele);
+                          }}
+                        >
+                          {ele.name}, {"   "}
+                          {ele.country}
+                        </span>
+                      );
+                    })}
+                </div>
+              </div>
+            )}
+            <button
+              className={`${!hidden && "absolute"}  ${
+                !hidden && "lg:border-l-2"
+              } right-0`}
+              onClick={() => {
+                setHidden(!hidden);
+              }}
+            >
+              <BiSearch size={30} />
+            </button>
+          </div>
+        </form>
       </div>
       <div className="flex pt-6 items-center justify-center">
         <span className="flex items-center justify-center flex-col">
-          <p className="xl:text-10xl text-3xl">
+          <p className="xl:text-8xl 2xl:text-10xl md:text-6xl text-5xl">
             {Math.ceil(weatherData?.main?.temp - 273)}°
           </p>
-          <p className="text-3xl">{weatherData?.weather[0]?.main}</p>
+          <p className="lg:text-3xl">{weatherData?.weather[0].main}</p>
         </span>
         <div className="text-xl pl-5">
           <span
@@ -116,17 +171,18 @@ const Left = () => {
           </span>
         </div>
       </div>
-      <div className="flex w-full pt-8 items-center gap-10 px-32">
+      <div className="md:grid-cols-6 grid grid-cols-3 gap-6 px-6 lg:px-0 md:px-6 w-full pt-8 xl:items-center md:gap-6 xl:gap-10 xl:px-16 2xl:px-32">
         {foreCast &&
           foreCast.list.map((ele: ForecastItem, index: number) => {
             const date = new Date(ele.dt * 1000).getDate();
-            // console.log(date, "Date");
-            // console.log(currDate, "currDate");
+            console.log(date, "Date");
+            console.log(currDate, "currDate");
+            if (flag && currDate < date) {
+              currDate += 1;
+            }
 
             if (date == currDate) {
-              // console.log(date);
-
-              currDate += 1;
+              currDate = currDate + 1;
               return <WeatherElement key={index} comp={"left"} ele={ele} />;
             }
           })}

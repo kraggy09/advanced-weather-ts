@@ -14,10 +14,10 @@ const Search = () => {
 
   return (
     <div className="w-full h-full flex-col flex items-center justify-center">
-      <p className="text-3xl font-light">
+      <p className="lg:text-3xl text-xl md:text-2xl font-light">
         Weather <span className="font-extrabold">Forecast</span>
       </p>
-      <p className="px-36 text-center">
+      <p className="lg:px-36 px-16 my-3 lg:my-0 text-center">
         Enter below the location you want to know the weather and select from
         dropdown
       </p>
@@ -40,7 +40,7 @@ const Search = () => {
                 }
                 setQuery(e.target.value);
               }}
-              className={`bg-white/10 h-10 text-white outline-none pl-3 rounded-xl`}
+              className={`bg-white/10 lg:h-10 h-8 text-white outline-none pl-3 rounded-xl`}
             />
 
             <button

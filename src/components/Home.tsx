@@ -10,7 +10,6 @@ interface Geolocation {
 }
 
 const Home = () => {
-  const { bg } = useContext(WeatherContext) as WeatherContextProps;
   const [geo, setGeo] = useState<Geolocation | undefined>(undefined);
   const { searchQuery, setSearchQuery } = useContext(
     WeatherContext
@@ -40,13 +39,13 @@ const Home = () => {
       <>
         {searchQuery ? (
           <div
-            className={`w-[80vw] flex rounded-xl backdrop-blur-lg text-$black  bg-white/30	 h-[80vh]`}
+            className={`md:w-[80vw] w-full flex lg:flex-row flex-col rounded-xl backdrop-blur-sm md:backdrop-blur-lg text-$black  bg-white/30 	 xl:h-[80vh]`}
           >
             <Left />
             <Right />
           </div>
         ) : (
-          <div className="w-[40vw] bg-white/30 text-black backdrop-blur-lg rounded-xl h-[60vh]">
+          <div className="lg:w-[40vw] w-[80vw] bg-white/30 text-black backdrop-blur-lg rounded-xl h-[70vh] pb-36 lg:pb-0 lg:h-[60vh]">
             <Search />
           </div>
         )}

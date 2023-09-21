@@ -11,6 +11,7 @@ export default {
       "4xl": "2.441rem",
       "5xl": "3.052rem",
       "6xl": "5rem",
+      "8xl": "8rem",
       "10xl": "12rem",
     },
     extend: {

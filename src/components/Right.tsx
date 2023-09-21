@@ -1,7 +1,7 @@
 import { BsDroplet } from "react-icons/bs";
 import { LiaWindSolid } from "react-icons/lia";
 
-import { ForecastItem, Weather } from "../interface/interface";
+import { ForecastItem } from "../interface/interface";
 import WeatherElement from "./WeatherElement";
 import { useContext } from "react";
 import { WeatherContext, WeatherContextProps } from "../context/Context";
@@ -13,8 +13,8 @@ const Right = () => {
   const date = new Date();
 
   return (
-    <div className="w-1/4 p-5 text-lg bg-white/10">
-      <span className="text-2xl">
+    <div className="lg:w-1/4 p-5 text-lg bg-white/10">
+      <span className="hidden md:block xl:text-2xl text-xl">
         <h1 className="text-center">
           {date.getHours() > 16
             ? "Good Evening"
@@ -25,10 +25,11 @@ const Right = () => {
         <h3 className="text-center pt-3">
           {"  "}
           {date.getHours() > 12 ? date.getHours() % 12 : date.getHours()}:
-          {date.getMinutes()} {date.getHours() > 12 ? "PM" : "AM"}
+          {date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()}{" "}
+          {date.getHours() > 12 ? "PM" : "AM"}
         </h3>
       </span>
-      <div className="flex pt-1 flex-col items-center justify-center">
+      <div className="xl:flex pt-1 xl:visible hidden flex-col items-center justify-center">
         <span className="flex items-center justify-center ">
           <p className="text-5xl">
             {weatherData ? Math.ceil(weatherData?.main?.temp - 273) : ""}°
@@ -52,7 +53,7 @@ const Right = () => {
         <p className="pt-1">{weatherData && weatherData.weather[0].main}</p>
       </div>
       <div className="flex pt-3 items-center justify-center flex-col">
-        <h1 className="text-2xl pt-1">Hourly ForeCast</h1>
+        <h1 className="xl:text-2xl md:text-xl pt-1">Hourly ForeCast</h1>
         <div className="flex flex-wrap gap-3 items-center justify-center w-full">
           {foreCast &&
             foreCast.list.map((ele: ForecastItem, index: number) => {
