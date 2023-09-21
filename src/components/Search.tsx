@@ -25,7 +25,7 @@ const Search = () => {
         onSubmit={(e: React.FormEvent) => {
           e.preventDefault();
 
-          console.log(data, loading, error);
+          // console.log(data, loading, error);
         }}
         className="relative flex mt-6 hover:cursor-pointer"
       >
