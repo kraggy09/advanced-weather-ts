@@ -45,7 +45,7 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
   const { data: weatherData } = useFetch<WeatherData>(
     `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`
   ) as { data: WeatherData };
-  console.log(weatherData);
+  // console.log(weatherData);
 
   const { data: foreCast } = useFetch<ForeCast>(
     `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`
@@ -84,7 +84,7 @@ export const WeatherProvider = ({ children }: WeatherProviderProps) => {
     foreCast: foreCast as ForeCast,
     bg: bg,
   };
-  console.log(searchQuery);
+  // console.log(searchQuery);
 
   return (
     <WeatherContext.Provider value={final}>{children}</WeatherContext.Provider>

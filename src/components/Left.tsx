@@ -60,9 +60,10 @@ const Left = () => {
               />
               <div className="bg-white/10  absolute top-8 left-1 pl-6 rounded-xl w-[80%] flex flex-col text-white ">
                 {Array.isArray(data) &&
-                  data.map((ele) => {
+                  data.map((ele, index) => {
                     return (
                       <span
+                        key={index}
                         onClick={() => {
                           setHidden(true);
                           setQuery("");
@@ -116,9 +117,10 @@ const Left = () => {
                 />
                 <div className="bg-black  absolute top-8 left-1 pl-6 rounded-xl w-[80%] flex flex-col text-white ">
                   {Array.isArray(data) &&
-                    data.map((ele) => {
+                    data.map((ele, i) => {
                       return (
                         <span
+                          key={i}
                           onClick={() => {
                             setHidden(true);
                             setQuery("");
@@ -175,8 +177,7 @@ const Left = () => {
         {foreCast &&
           foreCast.list.map((ele: ForecastItem, index: number) => {
             const date = new Date(ele.dt * 1000).getDate();
-            console.log(date, "Date");
-            console.log(currDate, "currDate");
+
             if (flag && currDate < date) {
               currDate += 1;
             }

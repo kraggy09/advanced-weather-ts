@@ -21,10 +21,10 @@ const Home = () => {
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
           setGeo({ long: longitude, lat: latitude });
-          console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+          // console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
         });
       } else {
-        console.log("Geolocation is not supported by this browser.");
+        // console.log("Geolocation is not supported by this browser.");
       }
     }
 
